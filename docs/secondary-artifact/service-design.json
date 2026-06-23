@@ -1,0 +1,185 @@
+{
+  "services": [
+    {
+      "name": "WorkspaceService",
+      "description": "Manage tenants and API keys",
+      "responsibilities": [
+        "CRUD workspaces",
+        "rotate API keys"
+      ],
+      "dependencies": [
+        "prisma"
+      ],
+      "methods": []
+    },
+    {
+      "name": "SiteService",
+      "description": "Manage sites under a workspace",
+      "responsibilities": [
+        "CRUD sites",
+        "verify ownership"
+      ],
+      "dependencies": [
+        "prisma"
+      ],
+      "methods": []
+    },
+    {
+      "name": "IndexingService",
+      "description": "Submit and track URL indexing jobs",
+      "responsibilities": [
+        "create jobs",
+        "enqueue work",
+        "track status"
+      ],
+      "dependencies": [
+        "prisma",
+        "queues",
+        "sitemapParser",
+        "quotaService"
+      ],
+      "methods": []
+    },
+    {
+      "name": "AuditService",
+      "description": "Site SEO/AI readiness audits",
+      "responsibilities": [
+        "trigger audits",
+        "store reports"
+      ],
+      "dependencies": [
+        "prisma",
+        "queues",
+        "auditCrawler"
+      ],
+      "methods": []
+    },
+    {
+      "name": "KeywordService",
+      "description": "Rank tracking",
+      "responsibilities": [
+        "CRUD keywords",
+        "record rank history"
+      ],
+      "dependencies": [
+        "prisma"
+      ],
+      "methods": []
+    },
+    {
+      "name": "BacklinkService",
+      "description": "Backlink discovery & catalog",
+      "responsibilities": [
+        "list backlinks per site"
+      ],
+      "dependencies": [
+        "prisma"
+      ],
+      "methods": []
+    },
+    {
+      "name": "ContentService",
+      "description": "AI content drafts & publishing",
+      "responsibilities": [
+        "generate drafts",
+        "publish to WordPress"
+      ],
+      "dependencies": [
+        "prisma",
+        "aiClient",
+        "queues"
+      ],
+      "methods": []
+    },
+    {
+      "name": "AiMonitoringService",
+      "description": "Brand mention monitoring across LLMs",
+      "responsibilities": [
+        "prompts CRUD",
+        "run prompts",
+        "store results"
+      ],
+      "dependencies": [
+        "prisma",
+        "aiClient",
+        "queues"
+      ],
+      "methods": []
+    },
+    {
+      "name": "PublishingService",
+      "description": "WordPress connections",
+      "responsibilities": [
+        "CRUD connections",
+        "encrypt credentials"
+      ],
+      "dependencies": [
+        "prisma",
+        "wpClient",
+        "crypto"
+      ],
+      "methods": []
+    },
+    {
+      "name": "AlertService",
+      "description": "Generate and list alerts",
+      "responsibilities": [
+        "create alerts",
+        "mark read"
+      ],
+      "dependencies": [
+        "prisma",
+        "eventBus"
+      ],
+      "methods": []
+    },
+    {
+      "name": "ScheduledReportService",
+      "description": "Recurring reports",
+      "responsibilities": [
+        "CRUD schedules",
+        "trigger sends"
+      ],
+      "dependencies": [
+        "prisma",
+        "queues"
+      ],
+      "methods": []
+    },
+    {
+      "name": "DashboardService",
+      "description": "Aggregated metrics",
+      "responsibilities": [
+        "summarize across modules"
+      ],
+      "dependencies": [
+        "prisma",
+        "quotaService"
+      ],
+      "methods": []
+    },
+    {
+      "name": "QuotaService",
+      "description": "Plan limits & usage tracking",
+      "responsibilities": [
+        "check limits",
+        "increment usage"
+      ],
+      "dependencies": [
+        "prisma"
+      ],
+      "methods": []
+    }
+  ],
+  "layers": {
+    "controllers": [
+      "Express routers under backend/src/routes/* validate input (zod) and delegate to services"
+    ],
+    "services": [
+      "Business logic & cross-cutting (quota, queue dispatch) under backend/src/services/*"
+    ],
+    "repositories": [
+      "Prisma client acts as the repository layer; no separate repository folder"
+    ]
+  }
+}

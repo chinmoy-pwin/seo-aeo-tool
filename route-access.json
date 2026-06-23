@@ -1,0 +1,159 @@
+{
+  "authEnabled": false,
+  "includeLandingPage": false,
+  "signupPath": "/signup",
+  "defaultAuthenticatedHome": "/dashboard",
+  "pages": [
+    {
+      "path": "/",
+      "component": "DashboardPage",
+      "access": "public",
+      "reason": "Demo dashboard home"
+    },
+    {
+      "path": "/sites",
+      "component": "SitesPage",
+      "access": "public",
+      "reason": "Site management"
+    },
+    {
+      "path": "/indexing",
+      "component": "IndexingPage",
+      "access": "public",
+      "reason": "Index jobs"
+    },
+    {
+      "path": "/audits",
+      "component": "AuditsPage",
+      "access": "public",
+      "reason": "Audit reports"
+    },
+    {
+      "path": "/keywords",
+      "component": "KeywordsPage",
+      "access": "public",
+      "reason": "Rank tracking"
+    },
+    {
+      "path": "/backlinks",
+      "component": "BacklinksPage",
+      "access": "public",
+      "reason": "Backlink monitor"
+    },
+    {
+      "path": "/content",
+      "component": "ContentDraftPage",
+      "access": "public",
+      "reason": "AI content drafts"
+    },
+    {
+      "path": "/ai-monitoring",
+      "component": "AiMonitoringPage",
+      "access": "public",
+      "reason": "Brand prompt monitor"
+    },
+    {
+      "path": "/integrations",
+      "component": "IntegrationsPage",
+      "access": "public",
+      "reason": "WP connections"
+    },
+    {
+      "path": "/alerts",
+      "component": "AlertsPage",
+      "access": "public",
+      "reason": "Alerts feed"
+    }
+  ],
+  "apiRoutes": [
+    {
+      "method": "GET",
+      "path": "/api/health",
+      "access": "public"
+    },
+    {
+      "method": "GET",
+      "path": "/api/workspaces",
+      "access": "public",
+      "reason": "api contract"
+    },
+    {
+      "method": "GET",
+      "path": "/api/sites",
+      "access": "public",
+      "reason": "api contract"
+    },
+    {
+      "method": "GET",
+      "path": "/api/index-jobs",
+      "access": "public",
+      "reason": "api contract"
+    },
+    {
+      "method": "GET",
+      "path": "/api/audits",
+      "access": "public",
+      "reason": "api contract"
+    },
+    {
+      "method": "GET",
+      "path": "/api/keywords",
+      "access": "public",
+      "reason": "api contract"
+    },
+    {
+      "method": "GET",
+      "path": "/api/backlinks",
+      "access": "public",
+      "reason": "api contract"
+    },
+    {
+      "method": "GET",
+      "path": "/api/content-drafts",
+      "access": "public",
+      "reason": "api contract"
+    },
+    {
+      "method": "GET",
+      "path": "/api/brand-prompts",
+      "access": "public",
+      "reason": "api contract"
+    },
+    {
+      "method": "GET",
+      "path": "/api/wordpress-connections",
+      "access": "public",
+      "reason": "api contract"
+    },
+    {
+      "method": "POST",
+      "path": "/api/wordpress-connections",
+      "access": "protected",
+      "reason": "api contract"
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/wordpress-connections/:id",
+      "access": "protected",
+      "reason": "api contract"
+    },
+    {
+      "method": "GET",
+      "path": "/api/alerts",
+      "access": "public",
+      "reason": "api contract"
+    },
+    {
+      "method": "GET",
+      "path": "/api/scheduled-reports",
+      "access": "public",
+      "reason": "api contract"
+    },
+    {
+      "method": "GET",
+      "path": "/api/dashboard/summary",
+      "access": "public",
+      "reason": "api contract"
+    }
+  ]
+}

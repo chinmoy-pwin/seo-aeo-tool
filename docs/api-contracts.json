@@ -1,0 +1,1135 @@
+[
+  {
+    "endpoint": "/api/workspaces",
+    "method": "GET",
+    "description": "List all workspaces",
+    "authentication": false,
+    "request": {
+      "headers": {},
+      "params": {},
+      "query": {},
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "workspaces": []
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/workspaces",
+    "method": "POST",
+    "description": "Create a workspace",
+    "authentication": false,
+    "request": {
+      "headers": {},
+      "params": {},
+      "query": {},
+      "body": {
+        "name": "string",
+        "slug": "string",
+        "plan": "free|pro|agency"
+      }
+    },
+    "response": {
+      "success": {
+        "status": 201,
+        "body": {
+          "workspace": {}
+        }
+      },
+      "errors": [
+        {
+          "status": 400,
+          "code": "VALIDATION_ERROR",
+          "message": "Invalid input"
+        }
+      ]
+    }
+  },
+  {
+    "endpoint": "/api/workspaces/:id",
+    "method": "GET",
+    "description": "Get workspace by id",
+    "authentication": false,
+    "request": {
+      "headers": {},
+      "params": {
+        "id": "string"
+      },
+      "query": {},
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "workspace": {}
+        }
+      },
+      "errors": [
+        {
+          "status": 404,
+          "code": "NOT_FOUND",
+          "message": "Workspace not found"
+        }
+      ]
+    }
+  },
+  {
+    "endpoint": "/api/workspaces/:id",
+    "method": "PUT",
+    "description": "Update workspace",
+    "authentication": false,
+    "request": {
+      "headers": {},
+      "params": {
+        "id": "string"
+      },
+      "query": {},
+      "body": {
+        "name": "string",
+        "whiteLabelEnabled": "boolean",
+        "brandingLogoUrl": "string"
+      }
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "workspace": {}
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/workspaces/:id",
+    "method": "DELETE",
+    "description": "Delete workspace",
+    "authentication": false,
+    "request": {
+      "headers": {},
+      "params": {
+        "id": "string"
+      },
+      "query": {},
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 204,
+        "body": {}
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/sites",
+    "method": "GET",
+    "description": "List sites in workspace",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {},
+      "query": {},
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "sites": []
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/sites",
+    "method": "POST",
+    "description": "Create site",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+        "domain": "string",
+        "sitemapUrl": "string"
+      }
+    },
+    "response": {
+      "success": {
+        "status": 201,
+        "body": {
+          "site": {}
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/sites/:id",
+    "method": "GET",
+    "description": "Get site",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {
+        "id": "string"
+      },
+      "query": {},
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "site": {}
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/sites/:id",
+    "method": "PUT",
+    "description": "Update site",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {
+        "id": "string"
+      },
+      "query": {},
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "site": {}
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/sites/:id",
+    "method": "DELETE",
+    "description": "Delete site",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {
+        "id": "string"
+      },
+      "query": {},
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 204,
+        "body": {}
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/index-jobs",
+    "method": "GET",
+    "description": "List indexing jobs",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {},
+      "query": {
+        "siteId": "string",
+        "status": "string"
+      },
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "jobs": []
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/index-jobs",
+    "method": "POST",
+    "description": "Create indexing job (manual urls, sitemap, api)",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+        "siteId": "string",
+        "source": "manual|sitemap|cms_plugin|api|gsc",
+        "engine": "google|bing|both",
+        "urls": [
+          "string"
+        ],
+        "sitemapUrl": "string"
+      }
+    },
+    "response": {
+      "success": {
+        "status": 202,
+        "body": {
+          "job": {}
+        }
+      },
+      "errors": [
+        {
+          "status": 429,
+          "code": "QUOTA_EXCEEDED",
+          "message": "URL quota exceeded"
+        }
+      ]
+    }
+  },
+  {
+    "endpoint": "/api/index-jobs/:id",
+    "method": "GET",
+    "description": "Get job with URLs and status",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {
+        "id": "string"
+      },
+      "query": {},
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "job": {},
+          "urls": []
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/index-jobs/:id",
+    "method": "DELETE",
+    "description": "Cancel/delete job",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {
+        "id": "string"
+      },
+      "query": {},
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 204,
+        "body": {}
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/brand-prompts",
+    "method": "GET",
+    "description": "List brand monitoring prompts",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {},
+      "query": {},
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "prompts": []
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/brand-prompts",
+    "method": "POST",
+    "description": "Create prompt",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+        "promptText": "string",
+        "brandName": "string",
+        "engines": [
+          "chatgpt",
+          "gemini",
+          "claude"
+        ],
+        "frequency": "daily|weekly"
+      }
+    },
+    "response": {
+      "success": {
+        "status": 201,
+        "body": {
+          "prompt": {}
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/brand-prompts/:id",
+    "method": "PUT",
+    "description": "Update prompt",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {
+        "id": "string"
+      },
+      "query": {},
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "prompt": {}
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/brand-prompts/:id",
+    "method": "DELETE",
+    "description": "Delete prompt",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {
+        "id": "string"
+      },
+      "query": {},
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 204,
+        "body": {}
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/brand-prompts/:id/run",
+    "method": "POST",
+    "description": "Manually trigger a run across configured engines",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {
+        "id": "string"
+      },
+      "query": {},
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 202,
+        "body": {
+          "queued": true
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/brand-prompts/:id/results",
+    "method": "GET",
+    "description": "List mention results for a prompt",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {
+        "id": "string"
+      },
+      "query": {
+        "engine": "string",
+        "from": "date",
+        "to": "date"
+      },
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "results": []
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/audits",
+    "method": "GET",
+    "description": "List audit reports",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {},
+      "query": {
+        "siteId": "string"
+      },
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "audits": []
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/audits",
+    "method": "POST",
+    "description": "Trigger an audit",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+        "siteId": "string"
+      }
+    },
+    "response": {
+      "success": {
+        "status": 202,
+        "body": {
+          "audit": {}
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/audits/:id",
+    "method": "GET",
+    "description": "Get audit details",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {
+        "id": "string"
+      },
+      "query": {},
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "audit": {}
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/keywords",
+    "method": "GET",
+    "description": "List tracked keywords",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {},
+      "query": {
+        "siteId": "string"
+      },
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "keywords": []
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/keywords",
+    "method": "POST",
+    "description": "Add keyword",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+        "siteId": "string",
+        "term": "string",
+        "country": "string"
+      }
+    },
+    "response": {
+      "success": {
+        "status": 201,
+        "body": {
+          "keyword": {}
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/keywords/:id",
+    "method": "DELETE",
+    "description": "Remove keyword",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {
+        "id": "string"
+      },
+      "query": {},
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 204,
+        "body": {}
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/backlinks",
+    "method": "GET",
+    "description": "List backlinks for a site",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {},
+      "query": {
+        "siteId": "string"
+      },
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "backlinks": []
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/content-drafts",
+    "method": "GET",
+    "description": "List content drafts",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {},
+      "query": {
+        "status": "string"
+      },
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "drafts": []
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/content-drafts/generate",
+    "method": "POST",
+    "description": "Generate new content draft via AI",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+        "topic": "string",
+        "language": "string",
+        "tone": "string",
+        "wordCount": "number"
+      }
+    },
+    "response": {
+      "success": {
+        "status": 201,
+        "body": {
+          "draft": {}
+        }
+      },
+      "errors": [
+        {
+          "status": 429,
+          "code": "QUOTA_EXCEEDED",
+          "message": "Content quota exceeded"
+        }
+      ]
+    }
+  },
+  {
+    "endpoint": "/api/content-drafts/:id",
+    "method": "GET",
+    "description": "Get draft",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {
+        "id": "string"
+      },
+      "query": {},
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "draft": {}
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/content-drafts/:id",
+    "method": "PUT",
+    "description": "Update draft",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {
+        "id": "string"
+      },
+      "query": {},
+      "body": {
+        "title": "string",
+        "body": "string"
+      }
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "draft": {}
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/content-drafts/:id",
+    "method": "DELETE",
+    "description": "Delete draft",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {
+        "id": "string"
+      },
+      "query": {},
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 204,
+        "body": {}
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/content-drafts/:id/publish",
+    "method": "POST",
+    "description": "Publish draft to a WordPress connection",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {
+        "id": "string"
+      },
+      "query": {},
+      "body": {
+        "connectionId": "string",
+        "status": "draft|publish"
+      }
+    },
+    "response": {
+      "success": {
+        "status": 202,
+        "body": {
+          "publishTarget": {}
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/wordpress-connections",
+    "method": "GET",
+    "description": "List WP connections",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {},
+      "query": {},
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "connections": []
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/wordpress-connections",
+    "method": "POST",
+    "description": "Add WP connection",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+        "siteUrl": "string",
+        "username": "string",
+        "appPassword": "string"
+      }
+    },
+    "response": {
+      "success": {
+        "status": 201,
+        "body": {
+          "connection": {}
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/wordpress-connections/:id",
+    "method": "DELETE",
+    "description": "Remove WP connection",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {
+        "id": "string"
+      },
+      "query": {},
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 204,
+        "body": {}
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/alerts",
+    "method": "GET",
+    "description": "List alerts",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {},
+      "query": {
+        "read": "boolean"
+      },
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "alerts": []
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/alerts/:id/read",
+    "method": "PUT",
+    "description": "Mark alert as read",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {
+        "id": "string"
+      },
+      "query": {},
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "alert": {}
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/scheduled-reports",
+    "method": "GET",
+    "description": "List scheduled reports",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {},
+      "query": {},
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "reports": []
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/scheduled-reports",
+    "method": "POST",
+    "description": "Create scheduled report",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {},
+      "query": {},
+      "body": {
+        "recipients": [
+          "string"
+        ],
+        "frequency": "weekly|monthly",
+        "sections": [
+          "string"
+        ]
+      }
+    },
+    "response": {
+      "success": {
+        "status": 201,
+        "body": {
+          "report": {}
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/scheduled-reports/:id",
+    "method": "DELETE",
+    "description": "Delete scheduled report",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {
+        "id": "string"
+      },
+      "query": {},
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 204,
+        "body": {}
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/dashboard/summary",
+    "method": "GET",
+    "description": "Workspace dashboard aggregated metrics",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {},
+      "query": {},
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "indexing": {},
+          "aiVisibility": {},
+          "audits": {},
+          "keywords": {},
+          "quota": {}
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/quota",
+    "method": "GET",
+    "description": "Get current quota usage",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {},
+      "query": {},
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "plan": "string",
+          "usage": {},
+          "limits": {}
+        }
+      },
+      "errors": []
+    }
+  },
+  {
+    "endpoint": "/api/realtime/jobs",
+    "method": "GET",
+    "description": "SSE stream for real-time index job status updates",
+    "authentication": false,
+    "request": {
+      "headers": {
+        "x-workspace-id": "string"
+      },
+      "params": {},
+      "query": {},
+      "body": {}
+    },
+    "response": {
+      "success": {
+        "status": 200,
+        "body": {
+          "stream": "text/event-stream"
+        }
+      },
+      "errors": []
+    }
+  }
+]

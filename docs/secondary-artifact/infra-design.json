@@ -1,0 +1,81 @@
+{
+  "components": [
+    {
+      "name": "PostgreSQL (Railway)",
+      "type": "database",
+      "technology": "PostgreSQL",
+      "purpose": "Primary relational store for all workspace data",
+      "configuration": {
+        "envVar": "DATABASE_URL"
+      }
+    },
+    {
+      "name": "Redis (Railway, optional)",
+      "type": "cache",
+      "technology": "Redis",
+      "purpose": "BullMQ broker + cache; in-process fallback when unset",
+      "configuration": {
+        "envVar": "REDIS_URL"
+      }
+    },
+    {
+      "name": "BullMQ Queues",
+      "type": "queue",
+      "technology": "BullMQ",
+      "purpose": "Async jobs: indexing, audits, AI monitoring, publishing, reports",
+      "configuration": {
+        "fallback": "in-process setImmediate"
+      }
+    },
+    {
+      "name": "Express API",
+      "type": "api",
+      "technology": "Express + TypeScript",
+      "purpose": "REST API for the React SPA",
+      "configuration": {
+        "port": "PORT",
+        "cors": "FRONTEND_URL"
+      }
+    },
+    {
+      "name": "Mock Object Storage",
+      "type": "mock",
+      "technology": "filesystem/none",
+      "purpose": "Audit artifacts referenced via URL strings only (no real cloud storage in V1)",
+      "configuration": {}
+    }
+  ],
+  "communication": [
+    {
+      "from": "React SPA",
+      "to": "Express API",
+      "protocol": "HTTP",
+      "purpose": "REST calls under /api"
+    },
+    {
+      "from": "Express API",
+      "to": "PostgreSQL",
+      "protocol": "TCP",
+      "purpose": "Prisma queries"
+    },
+    {
+      "from": "Express API",
+      "to": "Redis",
+      "protocol": "TCP",
+      "purpose": "BullMQ enqueue/dequeue"
+    },
+    {
+      "from": "BullMQ Workers",
+      "to": "PostgreSQL",
+      "protocol": "TCP",
+      "purpose": "Persist job results"
+    }
+  ],
+  "scaling": {
+    "strategy": "horizontal",
+    "triggers": [
+      "CPU > 75%",
+      "Queue depth > 500"
+    ]
+  }
+}

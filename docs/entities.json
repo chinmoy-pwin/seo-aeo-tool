@@ -1,0 +1,910 @@
+[
+  {
+    "name": "Workspace",
+    "description": "Top-level tenant container; all resources belong to a workspace.",
+    "attributes": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "description": "UUID primary key"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": true,
+        "description": "Workspace display name"
+      },
+      {
+        "name": "slug",
+        "type": "string",
+        "required": true,
+        "description": "URL-friendly identifier"
+      },
+      {
+        "name": "plan",
+        "type": "string",
+        "required": true,
+        "description": "free|pro|agency"
+      },
+      {
+        "name": "whiteLabelEnabled",
+        "type": "boolean",
+        "required": false,
+        "description": "Agency white-label toggle"
+      },
+      {
+        "name": "brandingLogoUrl",
+        "type": "string",
+        "required": false,
+        "description": "White-label logo"
+      },
+      {
+        "name": "apiKey",
+        "type": "string",
+        "required": true,
+        "description": "Workspace API key"
+      },
+      {
+        "name": "createdAt",
+        "type": "date",
+        "required": true,
+        "description": "Creation timestamp"
+      }
+    ],
+    "relationships": [
+      {
+        "entity": "Site",
+        "type": "oneToMany",
+        "description": "Workspace has many sites"
+      },
+      {
+        "entity": "IndexJob",
+        "type": "oneToMany",
+        "description": "Workspace owns indexing jobs"
+      },
+      {
+        "entity": "BrandPrompt",
+        "type": "oneToMany",
+        "description": "Workspace owns AI monitoring prompts"
+      },
+      {
+        "entity": "ContentDraft",
+        "type": "oneToMany",
+        "description": "Workspace owns content drafts"
+      },
+      {
+        "entity": "QuotaUsage",
+        "type": "oneToMany",
+        "description": "Tracks quota consumption"
+      }
+    ]
+  },
+  {
+    "name": "Site",
+    "description": "A website/domain managed within a workspace.",
+    "attributes": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "description": "UUID"
+      },
+      {
+        "name": "workspaceId",
+        "type": "reference",
+        "required": true,
+        "description": "FK Workspace"
+      },
+      {
+        "name": "domain",
+        "type": "string",
+        "required": true,
+        "description": "Root domain"
+      },
+      {
+        "name": "sitemapUrl",
+        "type": "string",
+        "required": false,
+        "description": "Sitemap location"
+      },
+      {
+        "name": "gscConnected",
+        "type": "boolean",
+        "required": false,
+        "description": "GSC integration status"
+      },
+      {
+        "name": "createdAt",
+        "type": "date",
+        "required": true,
+        "description": "Created at"
+      }
+    ],
+    "relationships": [
+      {
+        "entity": "Workspace",
+        "type": "manyToOne",
+        "description": "Belongs to workspace"
+      },
+      {
+        "entity": "IndexJob",
+        "type": "oneToMany",
+        "description": "Index jobs target this site"
+      },
+      {
+        "entity": "AuditReport",
+        "type": "oneToMany",
+        "description": "Audits run on this site"
+      },
+      {
+        "entity": "Keyword",
+        "type": "oneToMany",
+        "description": "Keywords tracked for site"
+      },
+      {
+        "entity": "Backlink",
+        "type": "oneToMany",
+        "description": "Backlinks for site"
+      }
+    ]
+  },
+  {
+    "name": "IndexJob",
+    "description": "A bulk indexing job containing multiple URL submissions.",
+    "attributes": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "description": "UUID"
+      },
+      {
+        "name": "workspaceId",
+        "type": "reference",
+        "required": true,
+        "description": "FK Workspace"
+      },
+      {
+        "name": "siteId",
+        "type": "reference",
+        "required": true,
+        "description": "FK Site"
+      },
+      {
+        "name": "source",
+        "type": "string",
+        "required": true,
+        "description": "manual|sitemap|cms_plugin|api|gsc"
+      },
+      {
+        "name": "engine",
+        "type": "string",
+        "required": true,
+        "description": "google|bing|both"
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "required": true,
+        "description": "pending|running|completed|failed"
+      },
+      {
+        "name": "totalUrls",
+        "type": "number",
+        "required": true,
+        "description": "Total URLs in job"
+      },
+      {
+        "name": "successCount",
+        "type": "number",
+        "required": false,
+        "description": "Successfully indexed"
+      },
+      {
+        "name": "failedCount",
+        "type": "number",
+        "required": false,
+        "description": "Failed count"
+      },
+      {
+        "name": "createdAt",
+        "type": "date",
+        "required": true,
+        "description": "Created at"
+      }
+    ],
+    "relationships": [
+      {
+        "entity": "Workspace",
+        "type": "manyToOne",
+        "description": "Belongs to workspace"
+      },
+      {
+        "entity": "Site",
+        "type": "manyToOne",
+        "description": "Belongs to site"
+      },
+      {
+        "entity": "IndexUrl",
+        "type": "oneToMany",
+        "description": "URLs in the job"
+      }
+    ]
+  },
+  {
+    "name": "IndexUrl",
+    "description": "Single URL submission within an IndexJob.",
+    "attributes": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "description": "UUID"
+      },
+      {
+        "name": "jobId",
+        "type": "reference",
+        "required": true,
+        "description": "FK IndexJob"
+      },
+      {
+        "name": "url",
+        "type": "string",
+        "required": true,
+        "description": "Target URL"
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "required": true,
+        "description": "queued|submitted|indexed|failed"
+      },
+      {
+        "name": "engineResponse",
+        "type": "string",
+        "required": false,
+        "description": "Raw API response"
+      },
+      {
+        "name": "submittedAt",
+        "type": "date",
+        "required": false,
+        "description": "Submission timestamp"
+      }
+    ],
+    "relationships": [
+      {
+        "entity": "IndexJob",
+        "type": "manyToOne",
+        "description": "Belongs to job"
+      }
+    ]
+  },
+  {
+    "name": "BrandPrompt",
+    "description": "A prompt/keyword to monitor across AI engines.",
+    "attributes": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "description": "UUID"
+      },
+      {
+        "name": "workspaceId",
+        "type": "reference",
+        "required": true,
+        "description": "FK Workspace"
+      },
+      {
+        "name": "promptText",
+        "type": "string",
+        "required": true,
+        "description": "Prompt to send to AI engines"
+      },
+      {
+        "name": "brandName",
+        "type": "string",
+        "required": true,
+        "description": "Brand keyword to detect"
+      },
+      {
+        "name": "engines",
+        "type": "string",
+        "required": true,
+        "description": "Comma list: chatgpt,gemini,claude"
+      },
+      {
+        "name": "frequency",
+        "type": "string",
+        "required": true,
+        "description": "daily|weekly"
+      },
+      {
+        "name": "createdAt",
+        "type": "date",
+        "required": true,
+        "description": "Created at"
+      }
+    ],
+    "relationships": [
+      {
+        "entity": "Workspace",
+        "type": "manyToOne",
+        "description": "Belongs to workspace"
+      },
+      {
+        "entity": "BrandMentionResult",
+        "type": "oneToMany",
+        "description": "Results of monitoring runs"
+      }
+    ]
+  },
+  {
+    "name": "BrandMentionResult",
+    "description": "Result of a single AI engine query for a prompt.",
+    "attributes": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "description": "UUID"
+      },
+      {
+        "name": "promptId",
+        "type": "reference",
+        "required": true,
+        "description": "FK BrandPrompt"
+      },
+      {
+        "name": "engine",
+        "type": "string",
+        "required": true,
+        "description": "chatgpt|gemini|claude"
+      },
+      {
+        "name": "mentioned",
+        "type": "boolean",
+        "required": true,
+        "description": "Whether brand was mentioned"
+      },
+      {
+        "name": "sentiment",
+        "type": "string",
+        "required": false,
+        "description": "positive|neutral|negative"
+      },
+      {
+        "name": "citationUrl",
+        "type": "string",
+        "required": false,
+        "description": "Cited source URL if any"
+      },
+      {
+        "name": "responseText",
+        "type": "string",
+        "required": false,
+        "description": "Raw AI response"
+      },
+      {
+        "name": "runAt",
+        "type": "date",
+        "required": true,
+        "description": "Execution timestamp"
+      }
+    ],
+    "relationships": [
+      {
+        "entity": "BrandPrompt",
+        "type": "manyToOne",
+        "description": "Belongs to prompt"
+      }
+    ]
+  },
+  {
+    "name": "AuditReport",
+    "description": "AI-readiness and technical SEO audit results.",
+    "attributes": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "description": "UUID"
+      },
+      {
+        "name": "workspaceId",
+        "type": "reference",
+        "required": true,
+        "description": "FK Workspace"
+      },
+      {
+        "name": "siteId",
+        "type": "reference",
+        "required": true,
+        "description": "FK Site"
+      },
+      {
+        "name": "aiReadinessScore",
+        "type": "number",
+        "required": true,
+        "description": "0-100"
+      },
+      {
+        "name": "technicalScore",
+        "type": "number",
+        "required": true,
+        "description": "0-100"
+      },
+      {
+        "name": "issues",
+        "type": "string",
+        "required": false,
+        "description": "JSON list of issues"
+      },
+      {
+        "name": "artifactUrl",
+        "type": "string",
+        "required": false,
+        "description": "S3 link to full report"
+      },
+      {
+        "name": "createdAt",
+        "type": "date",
+        "required": true,
+        "description": "Created at"
+      }
+    ],
+    "relationships": [
+      {
+        "entity": "Site",
+        "type": "manyToOne",
+        "description": "Belongs to site"
+      }
+    ]
+  },
+  {
+    "name": "Keyword",
+    "description": "A tracked keyword for ranking monitoring.",
+    "attributes": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "description": "UUID"
+      },
+      {
+        "name": "workspaceId",
+        "type": "reference",
+        "required": true,
+        "description": "FK Workspace"
+      },
+      {
+        "name": "siteId",
+        "type": "reference",
+        "required": true,
+        "description": "FK Site"
+      },
+      {
+        "name": "term",
+        "type": "string",
+        "required": true,
+        "description": "Keyword text"
+      },
+      {
+        "name": "country",
+        "type": "string",
+        "required": false,
+        "description": "Country code"
+      },
+      {
+        "name": "currentRank",
+        "type": "number",
+        "required": false,
+        "description": "Latest rank"
+      },
+      {
+        "name": "previousRank",
+        "type": "number",
+        "required": false,
+        "description": "Prior rank"
+      },
+      {
+        "name": "checkedAt",
+        "type": "date",
+        "required": false,
+        "description": "Last check time"
+      }
+    ],
+    "relationships": [
+      {
+        "entity": "Site",
+        "type": "manyToOne",
+        "description": "Belongs to site"
+      }
+    ]
+  },
+  {
+    "name": "Backlink",
+    "description": "A backlink referencing a site.",
+    "attributes": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "description": "UUID"
+      },
+      {
+        "name": "siteId",
+        "type": "reference",
+        "required": true,
+        "description": "FK Site"
+      },
+      {
+        "name": "sourceUrl",
+        "type": "string",
+        "required": true,
+        "description": "Linking page URL"
+      },
+      {
+        "name": "targetUrl",
+        "type": "string",
+        "required": true,
+        "description": "Linked page URL"
+      },
+      {
+        "name": "anchorText",
+        "type": "string",
+        "required": false,
+        "description": "Anchor text"
+      },
+      {
+        "name": "domainAuthority",
+        "type": "number",
+        "required": false,
+        "description": "DA score"
+      },
+      {
+        "name": "discoveredAt",
+        "type": "date",
+        "required": true,
+        "description": "Discovery time"
+      }
+    ],
+    "relationships": [
+      {
+        "entity": "Site",
+        "type": "manyToOne",
+        "description": "Belongs to site"
+      }
+    ]
+  },
+  {
+    "name": "ContentDraft",
+    "description": "AI-generated content draft.",
+    "attributes": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "description": "UUID"
+      },
+      {
+        "name": "workspaceId",
+        "type": "reference",
+        "required": true,
+        "description": "FK Workspace"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "description": "Article title"
+      },
+      {
+        "name": "language",
+        "type": "string",
+        "required": true,
+        "description": "Language code"
+      },
+      {
+        "name": "topic",
+        "type": "string",
+        "required": false,
+        "description": "Topic/prompt"
+      },
+      {
+        "name": "body",
+        "type": "string",
+        "required": true,
+        "description": "Markdown/HTML body"
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "required": true,
+        "description": "draft|published"
+      },
+      {
+        "name": "aiDetectionScore",
+        "type": "number",
+        "required": false,
+        "description": "0-100, lower=more human"
+      },
+      {
+        "name": "createdAt",
+        "type": "date",
+        "required": true,
+        "description": "Created at"
+      }
+    ],
+    "relationships": [
+      {
+        "entity": "Workspace",
+        "type": "manyToOne",
+        "description": "Belongs to workspace"
+      },
+      {
+        "entity": "PublishTarget",
+        "type": "oneToMany",
+        "description": "Publication records"
+      }
+    ]
+  },
+  {
+    "name": "WordPressConnection",
+    "description": "WordPress site connection for publishing.",
+    "attributes": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "description": "UUID"
+      },
+      {
+        "name": "workspaceId",
+        "type": "reference",
+        "required": true,
+        "description": "FK Workspace"
+      },
+      {
+        "name": "siteUrl",
+        "type": "string",
+        "required": true,
+        "description": "WordPress URL"
+      },
+      {
+        "name": "username",
+        "type": "string",
+        "required": true,
+        "description": "WP username"
+      },
+      {
+        "name": "appPassword",
+        "type": "string",
+        "required": true,
+        "description": "Encrypted WP app password"
+      },
+      {
+        "name": "createdAt",
+        "type": "date",
+        "required": true,
+        "description": "Created at"
+      }
+    ],
+    "relationships": [
+      {
+        "entity": "Workspace",
+        "type": "manyToOne",
+        "description": "Belongs to workspace"
+      }
+    ]
+  },
+  {
+    "name": "PublishTarget",
+    "description": "Record of publishing a draft to a connection.",
+    "attributes": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "description": "UUID"
+      },
+      {
+        "name": "draftId",
+        "type": "reference",
+        "required": true,
+        "description": "FK ContentDraft"
+      },
+      {
+        "name": "connectionId",
+        "type": "reference",
+        "required": true,
+        "description": "FK WordPressConnection"
+      },
+      {
+        "name": "remotePostId",
+        "type": "string",
+        "required": false,
+        "description": "WP post ID"
+      },
+      {
+        "name": "status",
+        "type": "string",
+        "required": true,
+        "description": "pending|published|failed"
+      },
+      {
+        "name": "publishedAt",
+        "type": "date",
+        "required": false,
+        "description": "When published"
+      }
+    ],
+    "relationships": [
+      {
+        "entity": "ContentDraft",
+        "type": "manyToOne",
+        "description": "Belongs to draft"
+      },
+      {
+        "entity": "WordPressConnection",
+        "type": "manyToOne",
+        "description": "Targets a connection"
+      }
+    ]
+  },
+  {
+    "name": "Alert",
+    "description": "Notification rule and triggered alert log.",
+    "attributes": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "description": "UUID"
+      },
+      {
+        "name": "workspaceId",
+        "type": "reference",
+        "required": true,
+        "description": "FK Workspace"
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "required": true,
+        "description": "indexing_failure|rank_drop|mention_change"
+      },
+      {
+        "name": "threshold",
+        "type": "string",
+        "required": false,
+        "description": "Threshold JSON"
+      },
+      {
+        "name": "message",
+        "type": "string",
+        "required": false,
+        "description": "Triggered alert message"
+      },
+      {
+        "name": "triggeredAt",
+        "type": "date",
+        "required": false,
+        "description": "When triggered"
+      },
+      {
+        "name": "read",
+        "type": "boolean",
+        "required": false,
+        "description": "Acknowledged"
+      }
+    ],
+    "relationships": [
+      {
+        "entity": "Workspace",
+        "type": "manyToOne",
+        "description": "Belongs to workspace"
+      }
+    ]
+  },
+  {
+    "name": "ScheduledReport",
+    "description": "Configured email report schedule.",
+    "attributes": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "description": "UUID"
+      },
+      {
+        "name": "workspaceId",
+        "type": "reference",
+        "required": true,
+        "description": "FK Workspace"
+      },
+      {
+        "name": "recipients",
+        "type": "string",
+        "required": true,
+        "description": "Comma list of emails"
+      },
+      {
+        "name": "frequency",
+        "type": "string",
+        "required": true,
+        "description": "weekly|monthly"
+      },
+      {
+        "name": "sections",
+        "type": "string",
+        "required": true,
+        "description": "JSON list of sections"
+      },
+      {
+        "name": "lastSentAt",
+        "type": "date",
+        "required": false,
+        "description": "Last send time"
+      }
+    ],
+    "relationships": [
+      {
+        "entity": "Workspace",
+        "type": "manyToOne",
+        "description": "Belongs to workspace"
+      }
+    ]
+  },
+  {
+    "name": "QuotaUsage",
+    "description": "Tracks usage counters per workspace per period.",
+    "attributes": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "description": "UUID"
+      },
+      {
+        "name": "workspaceId",
+        "type": "reference",
+        "required": true,
+        "description": "FK Workspace"
+      },
+      {
+        "name": "period",
+        "type": "string",
+        "required": true,
+        "description": "YYYY-MM"
+      },
+      {
+        "name": "urlsIndexed",
+        "type": "number",
+        "required": true,
+        "description": "URLs submitted"
+      },
+      {
+        "name": "promptsRun",
+        "type": "number",
+        "required": true,
+        "description": "AI prompts run"
+      },
+      {
+        "name": "contentGenerated",
+        "type": "number",
+        "required": true,
+        "description": "Drafts generated"
+      }
+    ],
+    "relationships": [
+      {
+        "entity": "Workspace",
+        "type": "manyToOne",
+        "description": "Belongs to workspace"
+      }
+    ]
+  }
+]

@@ -1,0 +1,86 @@
+Generated using Buildcraft by Nagent
+
+Pipeline: Application Indexly Does The Following — Bug Fix
+Pipeline id: 6a3a558942b2a0ef34898a6e
+Completed (UTC): 2026-06-23T09:46:07.055Z
+
+## Request summary
+You are modifying an existing project called: Application Indexly Does The Following
+
+## Retrieved memory (semantic, codebase + prior chat)
+[chat:user] 0.941: user: I see duplicate headers in the nav bar
+[code:frontend/src/components/layout/Header.tsx] 0.537: ction Header() {
+  return (
+    <header className="w-full shrink-0 border-b border-gray-200 bg-white shadow-sm">
+      <div className="mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3 md:px-6">
+        <div className="flex shrink-0 items-center gap-2">
+          <Link to="/" className="text-lg font-bold text-blue-600 hover:text-blue-700">
+            App
+          </Link>
+        </div>
+        <nav className="flex min-w-0 flex-1 flex-wrap items-center justify-end gap-2 sm:gap-3" aria-label="Main">
+          {NAV.map(item => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.to === '/'}
+              className={({ isActive }) => 'rounded-md px-3 py-2 text-sm font-bold transition-colors ' + (isActive ? 'bg-blue-50 text-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-blue-600')}
+            >
+              {item.label}
+            </NavLink>
+          ))}
+        </nav>
+      </div>
+    </header>
+  )
+}
+[chat:user] 0.531: user: I see only the nav items, the right panel is blank
+[code:frontend/src/components/layout/Header.tsx] 0.470: import { NavLink, Link } from 'react-router-dom'
+
+const NAV = [
+  { to: '/', label: 'Landing' },
+  { to: '/', label: 'Dashboard' },
+  { to: '/ai-monitoring', label: 'AiMonitoring' },
+  { to: '/alerts', label: 'Alerts' },
+  { to: '/audits', label: 'Audits' },
+  { to: '/backlinks', label: 'Backlinks' },
+  { to: '/content', label: 'ContentDraft' },
+  { to: '/content', label: 'Content' },
+  { to: '/indexing', label: 'Indexing' },
+  { to: '/index-job-detail', label: 'IndexJobDetail' },
+  { to: '/integrations', label: 'Integrations' },
+  { to: '/keywords', label: 'Keywords' },
+  { to: '/reports', label: 'Reports' },
+  { to: '/settings', label: 'Settings' },
+  { to: '/sites', label: 'Sites' },
+  { to: '/workspaces', label: 'Workspaces' },
+
+  { to: '/', label: 'Landing' },
+  { to: '/', label: 'Dashboard' },
+  { to: '/ai-monitoring', label: 'AiMonitoring' },
+  { to: '/alerts', label: 'Alerts' },
+  { to: '/audits', label: 'Audits' },
+  { to: '/backlinks', label: 'Backlinks' },
+  { to: '/content', label: 'ContentDraft' },
+  { to: '/content', label: 'Content' },
+  { to: '/index-job-detail', label: 'IndexJobDetail' },
+  { to: '/integrations', label: 'Integrations' },
+  { to: '/keywords', label: 'Keywords' },
+  { to: '/reports', label: 'Reports' },
+  { to: '/settings', label: 'Settings' },
+  { to: '/sites', label: 'Sites' },
+  { to: '/workspaces', label: 'Workspaces' },
+]
+
+export default function Header() {
+  return (
+    <header className="w-full shrink-0 border-b border-gray-200 bg-white
+[chat:assistant] 0.459: assistant: **What I understood**
+The user sees two headers stacked in the navigation bar area on app routes. This is a frontend layout defect — most likely the Header component is being rendered twice: once in App.tsx's authenticated layout wrapper (after the recent landing-page split) and again inside individual page components or a nested layout, causing duplicate nav bars.
+
+**Proposed code changes**
+- Inspect `frontend/src/App.tsx` to see where `<Header />` is mounted (likely inside an authenticated layout route with `<Outlet />`).
+- Inspect `frontend/src/components/layout/Header.tsx` — verify it does not internally render another Header or wrap children in a second nav.
+- Grep all `frontend/src/pages/*.tsx` for stray `<Header />` imports/usages left over from before the layout refactor; remove them so Header is rendered exactly once by the layout.
+- Ensure the landing route (`/`) renders without Header and all `/app` or authenticated routes render Header exactly once via the shared layout.
+- Verify `frontend/src/main.tsx` is not also wrapping th

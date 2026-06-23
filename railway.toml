@@ -1,0 +1,11 @@
+# BuildCraft Railway project — three components
+#
+# | Component | Railway service | Root Directory | Config file              |
+# |-----------|-----------------|----------------|--------------------------|
+# | API       | api             | backend        | backend/railway.toml     |
+# | Web       | web             | frontend       | frontend/railway.toml    |
+# | Database  | PostgreSQL      | (plugin)       | db/RAILWAY.md            |
+#
+# BuildCraft one-click deploy provisions all three automatically.
+# For GitHub → Railway manual deploy, create one project with api + web services
+# (set Root Directory per column above) and add the PostgreSQL plugin from the dashboard.

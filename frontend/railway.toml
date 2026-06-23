@@ -1,0 +1,13 @@
+# BuildCraft — Web service (Vite + nginx)
+# Railway service name: web | Root Directory: frontend
+
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+watchPatterns = ["src/**", "index.html", "vite.config.ts", "package.json", "nginx.conf"]
+
+[deploy]
+healthcheckPath = "/"
+healthcheckTimeout = 120
+restartPolicyType = "ON_FAILURE"
+numReplicas = 1

@@ -1,0 +1,77 @@
+{
+  "versions": [
+    {
+      "version": 1,
+      "timestamp": "2026-06-19T12:24:17.101Z",
+      "pipelineId": "6a3530d384f705932c9e275e",
+      "intent": "initial_build",
+      "summary": "Launched the initial release of an SEO and AI visibility platform that helps SaaS, B2B, and e-commerce brands get pages indexed on Google and Bing within hours via Indexing APIs, while monitoring brand mentions across LLMs like ChatGPT, Gemini, and Perplexity.",
+      "changedAreas": [
+        "frontend",
+        "backend",
+        "docs"
+      ]
+    },
+    {
+      "version": 2,
+      "timestamp": "2026-06-22T10:39:47.157Z",
+      "pipelineId": "6a390fbe42b2a0ef34898330",
+      "intent": "bug_fix",
+      "summary": "Fixed the non-functional \"Add Connection\" button on the Integrations page by wiring it to open a modal form that submits to the WordPress connections API and refreshes the list on success.",
+      "changedAreas": [
+        "frontend"
+      ]
+    },
+    {
+      "version": 3,
+      "timestamp": "2026-06-22T10:49:17.053Z",
+      "pipelineId": "6a3912f642b2a0ef348983e0",
+      "intent": "bug_fix",
+      "summary": "Fixed a regression where routed pages appeared blank after the sidebar redesign by switching the app shell to a horizontal flex layout, so the sidebar and main content now render side-by-side instead of stacked.",
+      "changedAreas": [
+        "frontend"
+      ]
+    },
+    {
+      "version": 4,
+      "timestamp": "2026-06-23T08:00:42.441Z",
+      "pipelineId": "6a3a38f842b2a0ef3489875a",
+      "intent": "backend_change",
+      "summary": "Expanded the demo seed data to populate multiple workspaces, sites, index jobs, audits, keywords, backlinks, content drafts, alerts, AI monitoring prompts, WordPress connections, and scheduled reports with realistic values and varied timestamps, so every page now showcases believable content for external demos.",
+      "changedAreas": [
+        "backend",
+        "docs"
+      ]
+    },
+    {
+      "version": 5,
+      "timestamp": "2026-06-23T08:09:25.960Z",
+      "pipelineId": "6a3a3d9242b2a0ef348988f3",
+      "intent": "frontend_change",
+      "summary": "Added a polished public landing page at `/` featuring a hero, product features, how-it-works section, social proof, and a CTA into the app, and moved the authenticated experience under `/dashboard` so the marketing page renders cleanly without the internal header and navigation.",
+      "changedAreas": [
+        "frontend"
+      ]
+    },
+    {
+      "version": 6,
+      "timestamp": "2026-06-23T09:41:47.145Z",
+      "pipelineId": "6a3a549142b2a0ef348989d4",
+      "intent": "bug_fix",
+      "summary": "Fixed an unresponsive \"New Indexing Job\" button on the Indexing page so that clicking it now correctly opens the job creation modal.",
+      "changedAreas": [
+        "frontend"
+      ]
+    },
+    {
+      "version": 7,
+      "timestamp": "2026-06-23T09:46:19.755Z",
+      "pipelineId": "6a3a558942b2a0ef34898a6e",
+      "intent": "bug_fix",
+      "summary": "Removed the duplicated entries from the Header's navigation array so the top bar now renders a single row of links instead of two stacked rows that looked like repeated headers.",
+      "changedAreas": [
+        "frontend"
+      ]
+    }
+  ]
+}

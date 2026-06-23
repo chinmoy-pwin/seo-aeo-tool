@@ -1,0 +1,165 @@
+{
+  "overview": "A multi-tenant SEO and AI visibility platform (Indexly-like) that helps SaaS, B2B, and e-commerce brands accelerate page indexing on Google/Bing, monitor brand mentions across AI engines (ChatGPT, Gemini, Claude, Perplexity), run AI-readiness and technical SEO audits, track keywords and backlinks, and generate/publish multilingual content to WordPress. Built with workspace-based multitenancy, tiered quotas, BullMQ job processing, and dashboard reporting.",
+  "goals": [
+    "Enable rapid URL indexing via Indexing APIs, sitemap parsing, and GSC connection",
+    "Track brand visibility across major AI chat engines with prompt-based monitoring",
+    "Provide actionable AI-readiness and technical SEO audits",
+    "Generate human-like multilingual content and publish to WordPress",
+    "Support workspace-based collaboration with tiered usage quotas",
+    "Deliver dashboards, scheduled email reports, alerts, white-label, and API access"
+  ],
+  "userStories": [
+    {
+      "as": "SEO manager",
+      "iWant": "to bulk-submit URLs for indexing",
+      "soThat": "new pages appear in Google/Bing within hours"
+    },
+    {
+      "as": "marketing lead",
+      "iWant": "to monitor whether ChatGPT/Gemini/Claude mention my brand",
+      "soThat": "I can track AI visibility"
+    },
+    {
+      "as": "growth engineer",
+      "iWant": "to upload a sitemap and auto-index all URLs",
+      "soThat": "I save manual GSC work"
+    },
+    {
+      "as": "content marketer",
+      "iWant": "to generate multilingual articles and publish to WordPress",
+      "soThat": "I scale content production"
+    },
+    {
+      "as": "agency owner",
+      "iWant": "white-label reports and workspaces per client",
+      "soThat": "I serve multiple brands"
+    },
+    {
+      "as": "technical SEO",
+      "iWant": "AI-readiness and technical audits with issues list",
+      "soThat": "I prioritize fixes"
+    },
+    {
+      "as": "ops lead",
+      "iWant": "real-time job status for indexing batches",
+      "soThat": "I can monitor progress"
+    },
+    {
+      "as": "admin",
+      "iWant": "tiered quotas per workspace",
+      "soThat": "usage is controlled by plan"
+    }
+  ],
+  "features": [
+    {
+      "name": "Workspace Management",
+      "description": "Create, switch, and manage workspaces; shared-DB row-level isolation via workspaceId.",
+      "priority": "P0"
+    },
+    {
+      "name": "Auto & Bulk Indexing",
+      "description": "Submit single URLs or bulk lists to Google/Bing Indexing APIs; queue via BullMQ; track status per URL.",
+      "priority": "P0"
+    },
+    {
+      "name": "Sitemap Ingestion",
+      "description": "Parse sitemap.xml and enqueue all URLs for indexing.",
+      "priority": "P0"
+    },
+    {
+      "name": "GSC Connect",
+      "description": "Connect Google Search Console for property verification and URL submission.",
+      "priority": "P1"
+    },
+    {
+      "name": "CMS Plugin/API Indexing",
+      "description": "Webhook/API endpoint and CMS plugin to push new URLs automatically.",
+      "priority": "P1"
+    },
+    {
+      "name": "AI Brand Monitoring",
+      "description": "Define prompts/keywords; periodically query ChatGPT, Gemini, Claude; detect brand mentions, sentiment, citations.",
+      "priority": "P0"
+    },
+    {
+      "name": "AI Readiness & Technical SEO Audit",
+      "description": "Crawl site; produce score, issues, recommendations for AI/SEO readiness.",
+      "priority": "P0"
+    },
+    {
+      "name": "Keyword Monitoring",
+      "description": "Track rankings for target keywords over time.",
+      "priority": "P1"
+    },
+    {
+      "name": "Backlink Tracking",
+      "description": "List and monitor backlinks per domain.",
+      "priority": "P2"
+    },
+    {
+      "name": "Multilingual Content Generation",
+      "description": "Generate AI-detection-resistant content in multiple languages.",
+      "priority": "P0"
+    },
+    {
+      "name": "WordPress Publishing",
+      "description": "Connect WordPress sites and publish generated content as draft/published posts.",
+      "priority": "P0"
+    },
+    {
+      "name": "Dashboards",
+      "description": "Workspace dashboard summarizing indexing, AI visibility, audit scores, keywords.",
+      "priority": "P0"
+    },
+    {
+      "name": "Scheduled Email Reports",
+      "description": "Configure weekly/monthly emailed reports.",
+      "priority": "P1"
+    },
+    {
+      "name": "Alerts",
+      "description": "Trigger alerts on ranking drops, brand mention changes, indexing failures.",
+      "priority": "P1"
+    },
+    {
+      "name": "White-Label Reports",
+      "description": "Customize branding on reports for agency use.",
+      "priority": "P2"
+    },
+    {
+      "name": "API Access",
+      "description": "Public REST API with workspace API keys.",
+      "priority": "P1"
+    },
+    {
+      "name": "Tiered Quota Billing",
+      "description": "Plans (Free/Pro/Agency) with quotas on URLs, prompts, content generations.",
+      "priority": "P0"
+    },
+    {
+      "name": "Realtime Job Updates",
+      "description": "WebSocket/SSE for live job/index status updates.",
+      "priority": "P1"
+    }
+  ],
+  "nonFunctionalRequirements": [
+    "Multi-tenant data isolation by workspaceId on every query",
+    "Horizontal scaling of BullMQ workers",
+    "P95 API latency < 400ms for CRUD",
+    "Postgres for relational data; S3-compatible storage for crawl artifacts and generated content",
+    "Dockerized deployment with docker-compose",
+    "Structured error responses with codes",
+    "Standard testing: unit + integration"
+  ],
+  "assumptions": [
+    "No end-user authentication required in v1 per request; workspaces accessed via workspace selector + API keys for programmatic use",
+    "External APIs (Google Indexing, Bing, OpenAI, Gemini, Anthropic) are mocked/stubbed at integration boundaries",
+    "WordPress publishing uses WP REST API with app passwords stored per connection",
+    "Shared DB with row-level workspaceId filtering is sufficient isolation"
+  ],
+  "constraints": [
+    "Stack fixed: React + Tailwind frontend, Fastify backend, PostgreSQL, BullMQ, Docker",
+    "REST API design with layered backend architecture",
+    "react-query for client state"
+  ]
+}
